@@ -1,0 +1,51 @@
+.catalog {
+    margin: 50px 0;
+    padding: 10px 0;
+    width: 75%;
+    background: #43516c;
+
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-size: 16px;
+}
+
+.catalogToggle {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-column-gap: 5px;
+    justify-content: center;
+}
+
+.radioButton {
+    width: 20px;
+    margin: 5px 0;
+}
+
+@media (max-width: 1280px) {
+    .catalog {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 1020px) {
+    .catalog {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 880px) {
+    .catalog {
+        width: 60%;
+    }
+}
+
+@media (max-width: 680px) {
+    .catalog {
+        font-size: 10px;
+    }
+
+    .radioButton {
+        width: 12px;
+        margin: 2px 2px 2px 0;
+    }
+
+}

@@ -1,0 +1,48 @@
+.catalogSettings {
+    display: inline-block;
+    position: fixed;
+    top: 18%;
+    left: 2%;
+}
+
+.radioButton {
+    width: 20px;
+    margin: 5px 0;
+}
+
+.resetButton {
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.content {
+    margin: 0 auto;
+    padding: 10px 10px;
+    display: grid;
+    grid-template-columns: 32.5% 32.5% 32.5%;
+    grid-gap: 0.5% 1%;
+}
+
+@media (max-width: 880px) {
+    .content {
+        grid-template-columns: 49.5% 49.5%;
+        grid-gap: 0.5% 1%;
+    }
+}
+
+@media (max-width: 680px) {
+    .radioButton {
+        width: 12px;
+        margin: 2px 2px 2px 0;
+    }
+    .resetButton {
+        cursor: pointer;
+        margin-top: 8px;
+        font-size: 10px;
+    }
+
+    .content {
+        grid-template-columns: 99%;
+        grid-gap: 0 1%;
+    }
+}
