@@ -15,7 +15,12 @@
     justify-content: center;
 }
 
+.catalogToggle label {
+    cursor: pointer;
+}
+
 .radioButton {
+    cursor: pointer;
     width: 20px;
     margin: 5px 0;
 }

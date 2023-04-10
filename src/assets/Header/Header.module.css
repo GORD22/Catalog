@@ -3,7 +3,7 @@
     top: 0;
     z-index: 10;
     background-color: #282c34;
-    height: 50px;
+    min-height: 45px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -12,8 +12,28 @@
     color: white;
 }
 
+.catalogToggle {
+    height: 100%;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-column-gap: 5px;
+    justify-content: center;
+    align-items: center;
+}
+
+.catalogToggle label {
+    cursor: pointer;
+}
+
+.radioButton {
+    cursor: pointer;
+    width: 20px;
+    margin: 5px 0;
+}
+
 @media (max-width: 880px) {
     .header {
-        height: 30px;
+        height: 40px;
+        font-size: calc(7px + 2vmin);
     }
 }

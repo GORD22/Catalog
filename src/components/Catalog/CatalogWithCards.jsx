@@ -1,64 +1,87 @@
-import React from "react";
-import Paginator from "../common/Paginator/Paginator";
-import style from "../../assets/Catalog/CatalogWithCards.module.css";
-import Card from "./Card";
+import React, {useEffect, useState} from 'react'
+import style from '../../assets/Catalog/CatalogWithCards.module.css'
+import Card from './Card'
+import {useDispatch} from 'react-redux'
+import {setTotalElementsCount} from '../../store/catalogSlice'
 
-const CatalogWithCards = ({catalogElements, totalElementsCount, currentPage,
-                              pageSize, hiddenCards, setCurrentPage,
+const CatalogWithCards = ({catalogElements, currentPage,
+                              pageSize, hiddenCards,
                               setHiddenCards, setSortCatalogElements}) => {
-    const minNumberElementOnPage = pageSize * (currentPage - 1);
-    const maxNumberElementOnPage = pageSize * (currentPage) - 1;
+
+    const dispatch = useDispatch();
+    const [tempCatalogElements, setTempCatalogElements] = useState(
+        [...catalogElements.filter((e) =>
+        !hiddenCards.includes(e.image))]
+    )
+    
+    useEffect(() => {
+        setTempCatalogElements(
+            [...catalogElements.filter((e) =>
+            !hiddenCards.includes(e.image))]
+        )
+    }, [catalogElements])
+
+    useEffect(() => {
+        setTimeout(() => {
+            setTempCatalogElements([...catalogElements.filter((e) => !hiddenCards.includes(e.image))])
+            dispatch(setTotalElementsCount(catalogElements.length - hiddenCards.length))
+        }, 150)
+
+    },[dispatch, hiddenCards])
+
+    const minNumberElementOnPage = pageSize * (currentPage - 1)
+    const maxNumberElementOnPage = pageSize * (currentPage) - 1
+
     const sortCards = (sortType) => {
         setSortCatalogElements(sortType)
     }
     const resetHiddenCards = () => {
-        localStorage.clear();
-        setHiddenCards(Object.values(localStorage));
+        localStorage.clear()
+        setHiddenCards(Object.values(localStorage))
+        dispatch(setTotalElementsCount(catalogElements.length))
     }
 
     return (
-        <div>
-            <Paginator totalElementsCount={totalElementsCount} currentPage={currentPage}
-                       pageSize={pageSize} setCurrentPage={setCurrentPage}/>
-            <div className={style.catalogSettings}>
+        <>
+            <nav className={style.catalogSettings}>
                 <div>
                     <input className={style.radioButton}
-                           type={"radio"} name={'sortCards'} defaultChecked={true}
+                           type={'radio'} name={'sortCards'} id={'category'} defaultChecked={true}
                            onClick={() => sortCards('category')}/>
-                    <label>Категории</label>
+                    <label htmlFor={'category'}>Категории</label>
                 </div>
                 <div>
                     <input className={style.radioButton}
-                           type={"radio"} name={'sortCards'}
+                           type={'radio'} name={'sortCards'} id={'date'}
                            onClick={() => sortCards('date')}/>
-                    <label>Дата</label>
+                    <label htmlFor={'date'}>Дата</label>
                 </div>
                 <div>
                     <input className={style.radioButton}
-                           type={"radio"} name={'sortCards'}
+                           type={'radio'} name={'sortCards'} id={'name'}
                            onClick={() => sortCards('name')}/>
-                    <label>Название</label>
+                    <label htmlFor={'name'}>Название</label>
                 </div>
                 <div>
                     <input className={style.radioButton}
-                           type={"radio"} name={'sortCards'}
+                           type={'radio'} name={'sortCards'} id={'size'}
                            onClick={() => sortCards('size')}/>
-                    <label>Размер</label>
+                    <label htmlFor={'size'}>Размер</label>
                 </div>
                 <button className={style.resetButton} onClick={resetHiddenCards}>Сброс</button>
-            </div>
-            <div className={style.content}>
+            </nav>
+            <section className={style.content}>
                 {
-                    catalogElements.filter((e, index) =>
+                    tempCatalogElements.filter((e, index) =>
                         index >= minNumberElementOnPage && index <= maxNumberElementOnPage
                     ).map(e =>
                         <Card key={e.id} element={e}
                               hiddenCards={hiddenCards} setHiddenCards={setHiddenCards}/>
                     )
                 }
-            </div>
-        </div>
+            </section>
+        </>
     )
 }
 
-export default CatalogWithCards;
+export default CatalogWithCards

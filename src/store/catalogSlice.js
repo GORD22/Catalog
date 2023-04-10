@@ -9,7 +9,7 @@ const initialState = {
     pageSize: 9,
     isFetching: false,
     hiddenCards: [],
-    initialized: false
+    toggleCatalog: false
 }
 
 const catalogSlice = createSlice({
@@ -20,9 +20,6 @@ const catalogSlice = createSlice({
             let id = 0;
             state.catalogElements = [...action.payload]
             state.catalogElements.forEach(element => element.id = id++)
-        },
-        setInitialized: (state, action) => {
-            state.initialized = action.payload
         },
         setFetching: (state, action) => {
             state.isFetching = action.payload
@@ -57,6 +54,9 @@ const catalogSlice = createSlice({
                 default:
                     break;
             }
+        },
+        setToggleCatalog: (state, action) => {
+            state.toggleCatalog = action.payload
         }
     }
 })
@@ -65,12 +65,12 @@ const {actions, reducer} = catalogSlice
 
 export const {
     setCatalogElements,
-    setInitialized,
     setFetching,
     setCurrentPage,
     setTotalElementsCount,
     setHiddenCards,
-    setSortCatalogElements
+    setSortCatalogElements,
+    setToggleCatalog
 } = actions
 
 export const requestCatalogElements = () => async (dispatch) => {
@@ -79,7 +79,6 @@ export const requestCatalogElements = () => async (dispatch) => {
     dispatch(setCatalogElements(data))
     dispatch(setTotalElementsCount(data.length))
     dispatch(setHiddenCards(Object.values(localStorage)))
-    dispatch(setInitialized(true))
     dispatch(setFetching(false))
 }
 

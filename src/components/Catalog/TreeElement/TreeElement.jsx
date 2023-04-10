@@ -6,8 +6,10 @@ import style from "../../../assets/Catalog/TreeElement.module.css"
 
 const TreeElement = ({element}) => {
     const [ToggleModalWindow, setToggleModalWindow] = useState(false);
+    const date = `${new Date(Number(element.timestamp))}`
+        .slice(0,`${new Date(Number(element.timestamp))}`.indexOf('G'))
     return (
-        <div>
+        <>
             {
                 ToggleModalWindow && <ModalWindowWithImage image={`${baseURL}${element.image}`}
                                                            setToggleModalWindow={setToggleModalWindow}/>
@@ -16,11 +18,11 @@ const TreeElement = ({element}) => {
                 <TreeItem nodeId={`${element.image}${element.id}`}
                           label={<img className={style.img} src={`${baseURL}${element.image}`} alt={''}/>}
                           onClick={() => setToggleModalWindow(true)}/>
-                <TreeItem nodeId={`${element.filesize}${element.id}`} label={`${element.filesize}`}/>
-                <TreeItem nodeId={`${element.timestamp}${element.id}`} label={`${element.timestamp}`}/>
-                <TreeItem nodeId={`${element.category}${element.id}`} label={`${element.category}`}/>
+                <TreeItem nodeId={`${element.filesize}${element.id}`} label={`File size: ${element.filesize} kB`}/>
+                <TreeItem nodeId={`${element.timestamp}${element.id}`} label={`Date: ${date}`}/>
+                <TreeItem nodeId={`${element.category}${element.id}`} label={`Category: ${element.category}`}/>
             </TreeItem>
-        </div>
+        </>
     )
 }
 

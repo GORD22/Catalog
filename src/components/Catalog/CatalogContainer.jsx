@@ -4,20 +4,20 @@ import {connect} from "react-redux";
 import {requestCatalogElements, setCurrentPage, setHiddenCards, setSortCatalogElements} from "../../store/catalogSlice";
 import Preloader from "../common/Preloader/Preloader";
 
-const CatalogContainer = ({catalogElements, initialized, currentPage, pageSize,
-                              totalElementsCount, isFetching, hiddenCards,
+const CatalogContainer = ({catalogElements, currentPage, pageSize,
+                              totalElementsCount, isFetching, hiddenCards, toggleCatalog,
                               setHiddenCards, requestCatalogElements, setCurrentPage,
                               setSortCatalogElements}) => {
     useEffect(() => {
         requestCatalogElements()
-    }, [initialized])
+    }, [requestCatalogElements])
 
     if (isFetching) return <Preloader/>
     else
         return (
             <Catalog catalogElements={catalogElements} currentPage={currentPage} pageSize={pageSize}
                      totalElementsCount={totalElementsCount} isFetching={isFetching} hiddenCards={hiddenCards}
-                     setCurrentPage={setCurrentPage} setHiddenCards={setHiddenCards}
+                     toggleCatalog={toggleCatalog} setCurrentPage={setCurrentPage} setHiddenCards={setHiddenCards}
                      setSortCatalogElements={setSortCatalogElements}
             />
         )
@@ -25,12 +25,12 @@ const CatalogContainer = ({catalogElements, initialized, currentPage, pageSize,
 
 const mapStateToProps = (state) => ({
     catalogElements: state.catalog.catalogElements,
-    initialized: state.catalog.initialized,
     currentPage: state.catalog.currentPage,
     pageSize: state.catalog.pageSize,
     totalElementsCount: state.catalog.totalElementsCount,
     isFetching: state.catalog.isFetching,
-    hiddenCards: state.catalog.hiddenCards
+    hiddenCards: state.catalog.hiddenCards,
+    toggleCatalog: state.catalog.toggleCatalog
 })
 
 export default connect(

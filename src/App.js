@@ -1,14 +1,14 @@
 import './App.css';
-import Header from "./components/Header/Header";
-import Footer from "./components/Footer/Footer";
+import HeaderContainer from "./components/Header/HeaderContainer";
+import FooterContainer from "./components/Footer/FooterContainer";
 import CatalogContainer from "./components/Catalog/CatalogContainer";
 
 function App() {
     return (
         <div className="App">
-            <Header/>
+            <HeaderContainer/>
             <CatalogContainer/>
-            <Footer/>
+            <FooterContainer/>
         </div>
     );
 }

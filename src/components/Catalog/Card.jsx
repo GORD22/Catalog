@@ -1,16 +1,19 @@
-import React from "react";
-import style from "../../assets/Catalog/Card.module.css";
-import cross from "../../assets/img/CatalogElement/close-cross.svg";
-import {baseURL} from "../../App";
-import cn from "classnames";
+import React from 'react'
+import style from '../../assets/Catalog/Card.module.css'
+import cross from '../../assets/img/CatalogElement/close-cross.svg'
+import {baseURL} from '../../App'
+import cn from 'classnames'
 
 const Card = ({element, hiddenCards, setHiddenCards}) => {
     const HideCard = () => {
-        localStorage.setItem(element.id, element.image);
-        setHiddenCards(Object.values(localStorage));
+        localStorage.setItem(element.id, element.image)
+        setHiddenCards(Object.values(localStorage))
     }
+    const date = `${new Date(Number(element.timestamp))}`
+        .slice(0, `${new Date(Number(element.timestamp))}`.indexOf('G'))
+
     return (
-        <div className={hiddenCards.includes(element.image) ? cn(style.element,style.hiddenElement) : style.element}>
+        <article className={hiddenCards.includes(element.image) ? cn(style.element, style.hiddenElement) : style.element}>
             <div className={style.imgContainer}>
                 <button className={style.closeButton} onClick={HideCard}>
                     <img className={style.cross} src={cross} alt={''}/>
@@ -21,17 +24,16 @@ const Card = ({element, hiddenCards, setHiddenCards}) => {
                 <b>File: </b>{element.image.slice(element.image.indexOf('/') + 1)}
             </div>
             <div>
-                <b>File size: </b>{element.filesize}
+                <b>File size: </b>{element.filesize} kB
             </div>
             <div>
-                <b>Date: </b> {`${new Date(Number(element.timestamp))}`
-                                    .slice(0,`${new Date(Number(element.timestamp))}`.indexOf('G'))}
+                <b>Date: </b> {date}
             </div>
             <div>
                 <b>Category: </b> {element.category}
             </div>
-        </div>
+        </article>
     )
 }
 
-export default Card;
+export default Card
