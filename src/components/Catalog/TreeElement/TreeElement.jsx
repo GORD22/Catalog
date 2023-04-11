@@ -18,7 +18,7 @@ const TreeElement = ({element}) => {
                 <TreeItem nodeId={`${element.image}${element.id}`}
                           label={<img className={style.img} src={`${baseURL}${element.image}`} alt={''}/>}
                           onClick={() => setToggleModalWindow(true)}/>
-                <TreeItem nodeId={`${element.filesize}${element.id}`} label={`File size: ${element.filesize} kB`}/>
+                <TreeItem nodeId={`${element.filesize}${element.id}`} label={`File size: ${Math.round(element.filesize/1000)} kB`}/>
                 <TreeItem nodeId={`${element.timestamp}${element.id}`} label={`Date: ${date}`}/>
                 <TreeItem nodeId={`${element.category}${element.id}`} label={`Category: ${element.category}`}/>
             </TreeItem>
