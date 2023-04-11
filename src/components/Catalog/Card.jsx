@@ -24,7 +24,7 @@ const Card = ({element, hiddenCards, setHiddenCards}) => {
                 <b>File: </b>{element.image.slice(element.image.indexOf('/') + 1)}
             </div>
             <div>
-                <b>File size: </b>{element.filesize} kB
+                <b>File size: </b>{Math.round(element.filesize/1000)} kB
             </div>
             <div>
                 <b>Date: </b> {date}
